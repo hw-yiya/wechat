@@ -1,0 +1,20 @@
+<extend name="Public/nav" />
+
+<block name="body">
+    <div class="container-fluid">
+        <volist name="list" id="vo">
+            <div class="row noticeList">
+                <a href="{:U('Article/detail?id='.$vo['id'])}">
+                    <div class="col-xs-2">
+                        <img class="noticeImg" src="__ROOT__{$vo.path}" />
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="title">{$vo.title}</p>
+                        <p class="intro">{$vo.description}</p>
+                        <p class="info">浏览: {$vo.view} <span class="pull-right">{$vo.create_time|date='Y-m-d',###}</span> </p>
+                    </div>
+                </a>
+            </div>
+        </volist>
+    </div>
+</block>
