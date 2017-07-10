@@ -28,6 +28,7 @@ class ArticleController extends Controller{
         $doc = M('Document');
         $id = I('get.id');
         $list = $doc->join('left join document_article as da on document.id = da.id')->field('document.*,da.content')->where(['document.id'=>$id])->find();
+        M('Document')->where('id=' . $id)->setInc('view', 1);
         $this->assign('list',$list);
         $this->display('detail');
     }

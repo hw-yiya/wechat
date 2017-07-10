@@ -8,14 +8,20 @@ class CenterController extends Controller{
         //已经登录
         if(is_login()){
             //跳转到我的
-            $model = D('Member');
-            $list = $model->where(['openid'=>session('openid')])->find();
-            $this->assign('list',$list);
-            $this->assign('img',session('img'));
-            $this->display();
+            $uid = $_SESSION['onethink_home']['user_auth']['uid'];
+//            dump($_SESSION['onethink_home']);exit;
+            if($uid){
+//                echo 'dshfgj';
+                $model = M('member');
+//                dump($model);exit;
+                $member = $model->where(['uid'=>$uid])->find();
+//                dump($member);exit;
+                $this->assign('member',$member);
+                $this->display('index');
+            }
         }else{
             //未登录跳转到登录页
-            redirect(U('Wechat/User/login'),2,'检测绑定状态!');
+            redirect('error');
         }
     }
 }

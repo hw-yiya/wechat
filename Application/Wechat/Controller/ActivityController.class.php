@@ -64,6 +64,7 @@ class ActivityController extends Controller
         $doc = M('document');
         $id = I('get.id');
         $list = $doc->join('left join document_article as da on document.id = da.id')->field('document.*,da.content')->where(['document.id'=>$id])->find();
+        M('Document')->where('id=' . $id)->setInc('view', 1);
         $this->assign('list',$list);
         $this->display();
     }
@@ -73,16 +74,13 @@ class ActivityController extends Controller
         if(is_login()){
             //接受到活动的id
             $id = I('get.id');
-
-            $name = $_SESSION['onethink_wechat']['user_auth']['name'];
-//            var_dump($name);exit;
+            $username = $_SESSION['onethink_home']['user_auth']['username'];
             //实例活动管理对象
-            $act = M('document');
+            $act = M('activity');
             //根据该用户名到活动管理表查询该用户是否已经申请过该活动
-            $rs = $act->where(['activity_id'=>$id,'name'=>$name])->find();
-
+            $rs = $act->where(['activity_id'=>$id,'username'=>$username])->find();
             if(!$rs){
-                $act->name = $name;
+                $act->username = $username;
                 $act->activity_id = $id;
                 $act->create_time = time();
                 if($act->add()){
@@ -92,15 +90,10 @@ class ActivityController extends Controller
                 //该用户已经申请过该活动
                 $this->ajaxReturn(['status'=>-1]);
             }
-
-
-
-
         }else{
             $this->ajaxReturn(['status'=>0]);
         }
     }
-
     public function error()
     {
         $this->display('Center/error');

@@ -112,8 +112,8 @@
             <tbody>
             <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?><tr>
                         <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo ($channel['id']); ?>"> </td>
-                        <td><?php echo ($channel["name"]); ?></td>
-                        <td><?php echo ($channel["title"]); ?></a></td>
+                        <td><?php echo ($channel["username"]); ?></td>
+                        <td><?php echo ($channel["title"]); ?></td>
                         <td><?php echo ($channel["description"]); ?></td>
                         <td><?php echo (date('Y-m-d H:i:s',$channel["deadline"])); ?></td>
                         <td><?php echo (date('Y-m-d H:i:s',$channel["create_time"])); ?></td>

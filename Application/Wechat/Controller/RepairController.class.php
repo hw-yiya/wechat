@@ -13,14 +13,14 @@ use Think\Controller;
 
 class RepairController extends Controller
 {
-    public function repair()
+    public function Index()
     {
 
-        if(is_login()){
+        if (is_login()) {
             $this->display();
-
-        }else{
+        } else {
             $this->display('Center/error');
         }
     }
+
 }

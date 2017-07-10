@@ -75,97 +75,78 @@
 
         <!-- nav -->
         <!-- nav -->
-
-        <!-- /内容区 -->
-        <!-- 标题 -->
-        <!-- 按钮工具栏 -->
         <!-- 标题栏 -->
+        <div class="main-title">
+            <h2>报修管理</h2>
+        </div>
         <div class="cf">
             <div class="fl">
-                <a class="btn" href="/index.php?s=/Admin/Family/add.html">新增</a>
-            </div>
-            <div class="fl">
-                <button class="btn ajax-post confirm" url="/index.php?s=/Admin/Family/qiyong.html" target-form="ids">启用</button>
-            </div>
-            <div class="fl">
-                <button class="btn ajax-post confirm" url="/index.php?s=/Admin/Family/jinyong.html" target-form="ids">禁用</button>
-            </div>
-            <div class="fl">
-                <button class="btn ajax-post confirm" url="/index.php?s=/Admin/Family/del.html" target-form="ids">删 除</button>
+                <a class="btn confirm" href="/index.php?s=/Admin/Center/add.html">添加</a>
+                <button class="btn ajax-post confirm" url="/index.php?s=/Admin/Center/del.html" target-form="ids">删 除</button>
             </div>
 
             <!-- 高级搜索 -->
             <div class="search-form fr cf">
                 <div class="sleft">
                     <input type="text" name="keywords" class="search-input" value="" placeholder="请输入报修人姓名或者报修单号">
-                    <a class="sch-btn" href="javascript:;" id="search" url="/admin.php/Family/index.html"><i class="btn-search"></i></a>
+                    <a class="sch-btn" href="javascript:;" id="search" url="/admin.php/Center/index.html"><i class="btn-search"></i></a>
                 </div>
             </div>
         </div>
-
-
-
-        <!-- 数据表格 -->
-        <div class="data-table">
+        <!-- 数据列表 -->
+        <div class="data-table table-striped">
             <table class="">
                 <thead>
                 <tr>
                     <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
-                    <th class="">发布人</th>
-                    <th class="">发布人电话</th>
-                    <th class="">标题</th>
-                    <th class="">类型</th>
-                    <th class="">价格</th>
-                    <th class="">创建时间</th>
-                    <th class="">到期时间</th>
+                    <th class="">报修单号</th>
+                    <th class="">报修人</th>
+                    <th class="">电话</th>
+                    <th class="">地址</th>
+                    <th class="">问题</th>
+                    <th class="">报修时间</th>
                     <th class="">状态</th>
                     <th class="">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$row): $mod = ($i % 2 );++$i;?><tr>
-                            <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo ($channel['id']); ?>"> </td>
-                            <td><?php echo ($row["name"]); ?></td>
-                            <td><?php echo ($row["phone"]); ?></td>
-                            <td><?php echo ($row["title"]); ?></td>
-                            <td><?php echo ($row['type']==1?"出租":"销售"); ?></td>
-                            <td><?php echo ($row["price"]); ?></td>
-                            <td><?php echo (date("Y-m-d H:i:s",$row["create_time"])); ?></td>
-                            <td><?php echo ($row["end_time"]); ?></td>
-                            <td><?php echo ($row['status']==1?"启用":"禁用"); ?></td>
-                            <td>
-                                <a title="编辑" href="<?php echo U('edit?id='.$row['id'].'&pid='.$pid);?>">编辑</a>
-                                <a href="<?php echo U('setStatus?ids='.$row['id'].'&status='.abs(1-$row['status']));?>" class="ajax-get"><?php echo (show_status_op($row["status"])); ?></a>
-                                <a class="confirm ajax-get" title="删除" href="<?php echo U('del?id='.$row['id']);?>">删除</a>
-                            </td>
-                        </tr><?php endforeach; endif; else: echo "" ;endif; ?>
-                    <tr>
-                    <td align="right" nowrap="true" colspan="6">
-                        <div id="turn-page" class="page">
-                            <?php echo ($pageHtml); ?>
-                        </div>
-                    </td>
-                </tr>
-                    <?php else: ?>
-                    <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
+                <?php if(is_array($repair)): $i = 0; $__LIST__ = $repair;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="<?php echo ($list["id"]); ?>" /></td>
+                        <td><?php echo ($list["id"]); ?></td>
+                        <td><?php echo ($list["name"]); ?></td>
+                        <td><?php echo ($list["tel"]); ?></td>
+                        <td><span><?php echo ($list["address"]); ?></span></td>
+                        <td><span><?php echo ($list["content"]); ?></span></td>
+                        <td><?php echo ($list["create_time"]); ?></td>
+                        <td>
+                            <?php switch($list["status"]): case "0": ?>未处理<?php break;?>
+                                <?php case "1": ?>处理中<?php break;?>
+                                <?php case "2": ?>已处理<?php break; endswitch;?>
+                        </td>
+                        <td>
+                            <?php switch($list["status"]): case "0": ?><a class="btn btn-info ajax-get" href="/admin.php/Repair/changeStatus/id/46/status/1.html">接受处理</a><?php break;?>
+                                <?php case "1": ?><case value="0"><a class="btn btn-info ajax-get" href="/admin.php/Repair/changeStatus/id/46/status/1.html">处理完成</a><?php break;?>
+                                    <?php case "2": break; endswitch;?>
+                            <a class="text-info" href="/admin.php/Repair/detail/id/46.html">查看详情</a>
+                            <a class="ajax-get" href="/admin.php/Repair/delete/id/46.html">删除</a>
+                        </td>
+                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                </tbody>
             </table>
-
-
         </div>
-
         <!-- 分页 -->
         <div class="page">
-            <div>    </div>    </div>
-    </div>
+            <?php echo ($page); ?>
+        </div>
 
 
-</div>
-<div class="cont-ft">
-    <div class="copyright">
-        <div class="fl">感谢使用<a href="http://www.onethink.cn" target="_blank">OneThink</a>管理平台</div>
-        <div class="fr">V1.0.131218</div>
     </div>
-</div>
+    <div class="cont-ft">
+        <div class="copyright">
+            <div class="fl">感谢使用<a href="http://www.onethink.cn" target="_blank">OneThink</a>管理平台</div>
+            <div class="fr">V1.0.131218</div>
+        </div>
+    </div>
 </div>
 <!-- /内容区 -->
 

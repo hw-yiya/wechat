@@ -25,7 +25,6 @@ class ServiceController extends Controller
         //$list = $doc->select();
         $list = $doc->join('as document left join picture on document.cover_id = picture.id')->field('document.*,picture.path')->where(['category_id'=>42])->select();
         //dump($list);exit;
-
         $this->assign('list',$list);
         $this->display('bianming');
     }

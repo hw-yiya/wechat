@@ -67,6 +67,7 @@ class ShopController extends Controller
         $doc = M('Document');
         $id = I('get.id');
         $shop = $doc->join('left join document_article as d on document.id = d.id')->field('document.*,d.content')->where(['document.id'=>$id])->find();
+        M('Document')->where('id=' . $id)->setInc('view', 1);
         $this->assign('shop',$shop);
         $this->display('detail');
     }

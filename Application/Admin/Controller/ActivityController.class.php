@@ -1,13 +1,13 @@
 <?php
 namespace Admin\Controller;
 
-class ArtivityController extends AdminController{
+class ActivityController extends AdminController{
     public function index()
     {
         //查询出所有活动管理信息
         $act = M('activity');
         $list = $act->join('as a join document as b on a.activity_id = b.id')->field('a.*,b.title,b.description,b.deadline')->select();
-        //dump($list);exit;
+//        dump($list);exit;
         $this->assign('list',$list);
         $this->display();
     }
@@ -16,6 +16,7 @@ class ArtivityController extends AdminController{
 
         $ids    =   I('request.ids');
         $status =   I('request.status');
+//        dump($Model);exit;
         if(empty($ids)){
             $this->error('请选择要操作的数据');
         }

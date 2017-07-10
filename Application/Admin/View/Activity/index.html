@@ -30,8 +30,8 @@
                 <volist name="list" id="channel">
                     <tr>
                         <td><input class="ids row-selected" type="checkbox" name="" id="" value="{$channel['id']}"> </td>
-                        <td>{$channel.name}</td>
-                        <td>{$channel.title}</a></td>
+                        <td>{$channel.username}</td>
+                        <td>{$channel.title}</td>
                         <td>{$channel.description}</td>
                         <td>{$channel.deadline|date='Y-m-d H:i:s',###}</td>
                         <td>{$channel.create_time|date='Y-m-d H:i:s',###}</td>
