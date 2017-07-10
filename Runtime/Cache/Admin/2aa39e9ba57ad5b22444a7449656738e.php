@@ -89,11 +89,12 @@
 
             
     <div class="main-title">
-        <h2>报修管理</h2>
+        <h2>业主认证</h2>
     </div>
 
     <div class="cf">
-        <a class="btn" href="<?php echo U('add');?>">添 加</a>
+        <a class="btn" href="javascript:;">审核通过</a>
+        <a class="btn" href="javascript:;">审核不通过</a>
         <a class="btn" href="javascript:;">删 除</a>
     </div>
 
@@ -104,12 +105,13 @@
                 <th class="row-selected">
                     <input class="checkbox check-all" type="checkbox">
                 </th>
-                <th>报修单号</th>
-                <th>报修人</th>
-                <th>电话</th>
-                <th>地址</th>
-                <th>问题</th>
-                <th>报修时间</th>
+                <th>用户UID</th>
+                <th>业主姓名</th>
+                <th>业主电话</th>
+                <th>住户编号</th>
+                <th>小区名字</th>
+                <th>身份证</th>
+                <th>与业主关系</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
@@ -117,21 +119,25 @@
             <tbody>
             <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?><tr>
                         <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo ($channel['id']); ?>"> </td>
-                        <td><?php echo ($channel["order"]); ?></td>
+                        <td><?php echo ($channel["uid"]); ?></td>
                         <td><?php echo ($channel["name"]); ?></a></td>
                         <td><?php echo ($channel["tel"]); ?></td>
-                        <td><?php echo ($channel["address"]); ?></td>
-                        <td><?php echo ($channel["title"]); ?></td>
-                        <td><?php echo (date('Y-m-d H:i:s',$channel["create_time"])); ?></td>
+                        <td><?php echo ($channel["family_no"]); ?></td>
+                        <td><?php echo ($channel["family_name"]); ?></td>
+                        <td><?php echo ($channel["code"]); ?></td>
                         <td>
-                            <?php switch($channel["status"]): case "2": ?>处理完成<?php break;?>
-                                <?php case "1": ?>处理中<?php break;?>
-                                <?php default: ?>未处理<?php endswitch;?>
+                            <?php switch($channel["relation"]): case "0": ?>本人<?php break;?>
+                                <?php case "1": ?>亲属<?php break;?>
+                                <?php default: ?>租户<?php endswitch;?>
                         </td>
                         <td>
-                            <?php if($channel["status"] == 0): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=0');?>" class="ajax-get btn btn-warning">接受处理</a><?php endif; ?>
-                            <?php if($channel["status"] == 1): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=1');?>" class="ajax-get btn btn-info">处理完成</a><?php endif; ?>
-
+                            <?php switch($channel["status"]): case "0": ?>待审核<?php break;?>
+                                <?php case "1": ?>审核通过<?php break;?>
+                                <?php default: ?>审核不通过<?php endswitch;?>
+                        </td>
+                        <td>
+                            <?php if($channel["status"] == 0): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=0');?>" class="ajax-get btn btn-info">审核通过</a>
+                                <a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=1');?>" class="ajax-get btn btn-warning">审核不通过</a><?php endif; ?>
                             <a title="查看详情" href="<?php echo U('detail?id='.$channel['id']);?>">查看详情</a>
                             <a class="confirm ajax-get" title="删除" href="<?php echo U('del?id='.$channel['id']);?>">删除</a>
                         </td>

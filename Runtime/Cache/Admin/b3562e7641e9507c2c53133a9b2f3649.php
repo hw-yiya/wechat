@@ -16,9 +16,6 @@
     <script type="text/javascript" src="/Public/Admin/js/jquery.mousewheel.js"></script>
     <!--<![endif]-->
     
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
 </head>
 <body>
     <!-- 头部 -->
@@ -89,58 +86,51 @@
 
             
     <div class="main-title">
-        <h2>报修管理</h2>
+        <h2>
+            新增报修
+        </h2>
+    </div>
+    <form action="/index.php?s=/Admin/Repair/add.html" method="post" class="form-horizontal">
+        <input type="hidden" name="pid" value="">
+        <div class="form-item">
+            <label class="item-label">姓名</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="name" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">电话</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="tel" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">地址</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="address" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">标题(简述报修问题)</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">内容<span class="check-tips">（详细叙述报修内容）</span></label>
+            <div class="controls textarea input-large">
+                <textarea name="content"></textarea>
+            </div>
+        </div>
+        <div class="form-item">
+            <input type="hidden" name="id" value="">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+
     </div>
 
-    <div class="cf">
-        <a class="btn" href="<?php echo U('add');?>">添 加</a>
-        <a class="btn" href="javascript:;">删 除</a>
-    </div>
-
-    <div class="data-table table-striped">
-        <table class="table-bordered table table-responsive">
-            <thead>
-            <tr>
-                <th class="row-selected">
-                    <input class="checkbox check-all" type="checkbox">
-                </th>
-                <th>报修单号</th>
-                <th>报修人</th>
-                <th>电话</th>
-                <th>地址</th>
-                <th>问题</th>
-                <th>报修时间</th>
-                <th>状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo ($channel['id']); ?>"> </td>
-                        <td><?php echo ($channel["order"]); ?></td>
-                        <td><?php echo ($channel["name"]); ?></a></td>
-                        <td><?php echo ($channel["tel"]); ?></td>
-                        <td><?php echo ($channel["address"]); ?></td>
-                        <td><?php echo ($channel["title"]); ?></td>
-                        <td><?php echo (date('Y-m-d H:i:s',$channel["create_time"])); ?></td>
-                        <td>
-                            <?php switch($channel["status"]): case "2": ?>处理完成<?php break;?>
-                                <?php case "1": ?>处理中<?php break;?>
-                                <?php default: ?>未处理<?php endswitch;?>
-                        </td>
-                        <td>
-                            <?php if($channel["status"] == 0): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=0');?>" class="ajax-get btn btn-warning">接受处理</a><?php endif; ?>
-                            <?php if($channel["status"] == 1): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=1');?>" class="ajax-get btn btn-info">处理完成</a><?php endif; ?>
-
-                            <a title="查看详情" href="<?php echo U('detail?id='.$channel['id']);?>">查看详情</a>
-                            <a class="confirm ajax-get" title="删除" href="<?php echo U('del?id='.$channel['id']);?>">删除</a>
-                        </td>
-                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
-                <?php else: ?>
-                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
-            </tbody>
-        </table>
-    </div>
 
         </div>
         <div class="cont-ft">
@@ -235,30 +225,9 @@
         }();
     </script>
     
-    <script type="text/javascript">
-        $(function() {
-            //点击排序
-            $('.list_sort').click(function(){
-                var url = $(this).attr('url');
-                var ids = $('.ids:checked');
-                var param = '';
-                if(ids.length > 0){
-                    var str = new Array();
-                    ids.each(function(){
-                        str.push($(this).val());
-                    });
-                    param = str.join(',');
-                }
-
-                if(url != undefined && url != ''){
-                    window.location.href = url + '/ids/' + param;
-                }
-            });
-        });
-
-        $(".table").DataTable({
-
-        });
+    <script type="text/javascript" charset="utf-8">
+        //导航高亮
+        highlight_subnav('<?php echo U('index');?>');
     </script>
 
 </body>

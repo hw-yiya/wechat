@@ -41,36 +41,33 @@
     
     <!--导航结束-->
 
-    <div class="container-fluid">
-        <form action="/index.php?s=/Wechat/Repair/index.html" method="post">
-            <div class="form-group">
-                <label>您的姓名(必填):</label>
-                <input type="text" name="name" class="form-control" />
+    <div class="container">
+        <div class="blank"></div>
+        <div class="row">
+            <div class="col-xs-3">
+                <img src="/Public/Wechat/image/5.png" width="60" height="60" />
             </div>
-            <div class="form-group">
-                <label>您的电话(必填):</label>
-                <input type="text" name="tel" class="form-control" />
+            <div class="col-xs-9">
+                <?php echo ($member["nickname"]); ?><br/>
+                北大花园小区<br/>
+                积分:<span class="text-danger"><?php echo ($member["score"]); ?></span>
             </div>
-            <div class="form-group">
-                <label>您的地址(必填):</label>
-                <input type="text" name="address" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>标题(必填):</label>
-                <input type="text" name="title" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>内容(详细描述需要报修的内容):</label>
-                <textarea type="text" name="content" class="form-control"></textarea>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<div><a href="#"><span class="glyphicon glyphicon-plus onlineUpImg"></span></a></div>-->
-            <!--<label>图片(最多上传5张,可不上传):</label>-->
-            <!--</div>-->
-            <div class="form-group">
-                <button class="btn btn-primary onlineBtn">确认提交</button>
-            </div>
-        </form>
+        </div>
+        <div class="blank"></div>
+        <div class="row text-center myLabel">
+            <div class="col-xs-4 label-danger"><a href="#"><span class="iconfont">&#xe60b;</span>我的资料</a></div>
+            <div class="col-xs-4 label-success"><a href="#"><span class="iconfont">&#xe609;</span>我的报修</a></div>
+            <div class="col-xs-4 label-primary"><a href="#"><span class="iconfont">&#xe606;</span>报名的活动</a></div>
+        </div>
+        <div class="blank"></div>
+        <div>
+            <ul class="list-group fuwuList">
+                <li class="list-group-item"><a href="diaochawenjuan.html" class="text-danger"><span class="iconfont">&#xe60a;</span>我的缴费账单</a> </li>
+                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe608;</span>我的物业通知</a></li>
+                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe607;</span>我的水电气使用</a></li>
+                <li class="list-group-item"><a href="<?php echo U('User/logout');?>" class="text-danger"><span class="iconfont">&#xe60a;</span>退出登录</a> </li>
+            </ul>
+        </div>
     </div>
 
 </div>

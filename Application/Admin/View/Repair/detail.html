@@ -1,0 +1,50 @@
+<extend name="Public/base" />
+<block name="body">
+    <div class="main-title">
+        <h2>报修详情</h2>
+    </div>
+    <form action="" method="post" class="form-horizontal">
+        <div class="form-item">
+            <span class="item-label">报修编号：<span class="check-tips">{$list.order}</span></span>
+        </div>
+        <div class="form-item">
+            <span class="item-label">状态：<span class="check-tips">
+             <switch name="list.status">
+                <case value="0">待处理</case>
+                <case value="1">处理中</case>
+                <default />处理完成
+            </switch>
+            </span></span>
+        </div>
+        <div class="form-item">
+            <span class="item-label">报修人：<span class="check-tips">{$list.name}</span></span>
+        </div>
+        <div class="form-item">
+            <span class="item-label">报修人电话：<span class="check-tips">{$list.tel}</span></span>
+        </div>
+        <div class="form-item">
+            <span class="item-label">标题：<span class="check-tips">{$list.title}</span></span>
+        </div>
+        <div class="form-item">
+            <label class="item-label">说明</label>
+            <div class="controls">
+                <label class="textarea input-large">
+                    <textarea disabled name="remark">{$list.content}</textarea>
+                </label>
+            </div>
+        </div>
+    </form>
+
+    </div>
+
+</block>
+
+
+
+<block name="script">
+    <script type="text/javascript" charset="utf-8">
+        //导航高亮
+        highlight_subnav('{:U('index')}');
+    </script>
+
+</block>

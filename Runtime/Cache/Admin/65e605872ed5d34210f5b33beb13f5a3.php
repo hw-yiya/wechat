@@ -16,9 +16,6 @@
     <script type="text/javascript" src="/Public/Admin/js/jquery.mousewheel.js"></script>
     <!--<![endif]-->
     
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-
 </head>
 <body>
     <!-- 头部 -->
@@ -88,58 +85,66 @@
             
 
             
-    <div class="main-title">
-        <h2>报修管理</h2>
-    </div>
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>用户列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            <a class="btn" href="<?php echo U('add');?>">新 增</a>
+            <button class="btn ajax-post" url="<?php echo U('changeStatus?method=resumeUser');?>" target-form="ids">启 用</button>
+            <button class="btn ajax-post" url="<?php echo U('changeStatus?method=forbidUser');?>" target-form="ids">禁 用</button>
+            <button class="btn ajax-post confirm" url="<?php echo U('changeStatus?method=deleteUser');?>" target-form="ids">删 除</button>
+        </div>
 
-    <div class="cf">
-        <a class="btn" href="<?php echo U('add');?>">添 加</a>
-        <a class="btn" href="javascript:;">删 除</a>
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="nickname" class="search-input" value="<?php echo I('nickname');?>" placeholder="请输入用户昵称或者ID">
+				<a class="sch-btn" href="javascript:;" id="search" url="<?php echo U('index');?>"><i class="btn-search"></i></a>
+			</div>
+		</div>
     </div>
-
+    <!-- 数据列表 -->
     <div class="data-table table-striped">
-        <table class="table-bordered table table-responsive">
-            <thead>
-            <tr>
-                <th class="row-selected">
-                    <input class="checkbox check-all" type="checkbox">
-                </th>
-                <th>报修单号</th>
-                <th>报修人</th>
-                <th>电话</th>
-                <th>地址</th>
-                <th>问题</th>
-                <th>报修时间</th>
-                <th>状态</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php if(!empty($list)): if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$channel): $mod = ($i % 2 );++$i;?><tr>
-                        <td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo ($channel['id']); ?>"> </td>
-                        <td><?php echo ($channel["order"]); ?></td>
-                        <td><?php echo ($channel["name"]); ?></a></td>
-                        <td><?php echo ($channel["tel"]); ?></td>
-                        <td><?php echo ($channel["address"]); ?></td>
-                        <td><?php echo ($channel["title"]); ?></td>
-                        <td><?php echo (date('Y-m-d H:i:s',$channel["create_time"])); ?></td>
-                        <td>
-                            <?php switch($channel["status"]): case "2": ?>处理完成<?php break;?>
-                                <?php case "1": ?>处理中<?php break;?>
-                                <?php default: ?>未处理<?php endswitch;?>
-                        </td>
-                        <td>
-                            <?php if($channel["status"] == 0): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=0');?>" class="ajax-get btn btn-warning">接受处理</a><?php endif; ?>
-                            <?php if($channel["status"] == 1): ?><a href="<?php echo U('setStatus?ids='.$channel['id'].'&status=1');?>" class="ajax-get btn btn-info">处理完成</a><?php endif; ?>
-
-                            <a title="查看详情" href="<?php echo U('detail?id='.$channel['id']);?>">查看详情</a>
-                            <a class="confirm ajax-get" title="删除" href="<?php echo U('del?id='.$channel['id']);?>">删除</a>
-                        </td>
-                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
-                <?php else: ?>
-                <td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
-            </tbody>
-        </table>
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">UID</th>
+		<th class="">昵称</th>
+		<th class="">积分</th>
+		<th class="">登录次数</th>
+		<th class="">最后登录时间</th>
+		<th class="">最后登录IP</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<?php if(!empty($_list)): if(is_array($_list)): $i = 0; $__LIST__ = $_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="<?php echo ($vo["uid"]); ?>" /></td>
+			<td><?php echo ($vo["uid"]); ?> </td>
+			<td><?php echo ($vo["nickname"]); ?></td>
+			<td><?php echo ($vo["score"]); ?></td>
+			<td><?php echo ($vo["login"]); ?></td>
+			<td><span><?php echo (time_format($vo["last_login_time"])); ?></span></td>
+			<td><span><?php echo long2ip($vo['last_login_ip']);?></span></td>
+			<td><?php echo ($vo["status_text"]); ?></td>
+			<td><?php if(($vo["status"]) == "1"): ?><a href="<?php echo U('User/changeStatus?method=forbidUser&id='.$vo['uid']);?>" class="ajax-get">禁用</a>
+				<?php else: ?>
+				<a href="<?php echo U('User/changeStatus?method=resumeUser&id='.$vo['uid']);?>" class="ajax-get">启用</a><?php endif; ?>
+				<a href="<?php echo U('AuthManager/group?uid='.$vo['uid']);?>" class="authorize">授权</a>
+                <a href="<?php echo U('User/changeStatus?method=deleteUser&id='.$vo['uid']);?>" class="confirm ajax-get">删除</a>
+                </td>
+		</tr><?php endforeach; endif; else: echo "" ;endif; ?>
+		<?php else: ?>
+		<td colspan="9" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        <?php echo ($_page); ?>
     </div>
 
         </div>
@@ -155,7 +160,7 @@
     (function(){
         var ThinkPHP = window.Think = {
             "ROOT"   : "", //当前网站地址
-            "APP"    : "/index.php?s=", //当前项目地址
+            "APP"    : "/admin.php?s=", //当前项目地址
             "PUBLIC" : "/Public", //项目公共目录地址
             "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
             "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
@@ -235,31 +240,32 @@
         }();
     </script>
     
-    <script type="text/javascript">
-        $(function() {
-            //点击排序
-            $('.list_sort').click(function(){
-                var url = $(this).attr('url');
-                var ids = $('.ids:checked');
-                var param = '';
-                if(ids.length > 0){
-                    var str = new Array();
-                    ids.each(function(){
-                        str.push($(this).val());
-                    });
-                    param = str.join(',');
-                }
+	<script src="/Public/static/thinkbox/jquery.thinkbox.js"></script>
 
-                if(url != undefined && url != ''){
-                    window.location.href = url + '/ids/' + param;
-                }
-            });
-        });
-
-        $(".table").DataTable({
-
-        });
-    </script>
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+    //导航高亮
+    highlight_subnav('<?php echo U('User/index');?>');
+	</script>
 
 </body>
 </html>

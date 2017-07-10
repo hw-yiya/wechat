@@ -39,39 +39,33 @@
         </div>	</div>
     </nav>
     
-    <!--导航结束-->
-
-    <div class="container-fluid">
-        <form action="/index.php?s=/Wechat/Repair/index.html" method="post">
-            <div class="form-group">
-                <label>您的姓名(必填):</label>
-                <input type="text" name="name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>您的电话(必填):</label>
-                <input type="text" name="tel" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>您的地址(必填):</label>
-                <input type="text" name="address" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>标题(必填):</label>
-                <input type="text" name="title" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>内容(详细描述需要报修的内容):</label>
-                <textarea type="text" name="content" class="form-control"></textarea>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<div><a href="#"><span class="glyphicon glyphicon-plus onlineUpImg"></span></a></div>-->
-            <!--<label>图片(最多上传5张,可不上传):</label>-->
-            <!--</div>-->
-            <div class="form-group">
-                <button class="btn btn-primary onlineBtn">确认提交</button>
-            </div>
-        </form>
+    <div class="container">
+        <div class="alert alert-success text-center" role="alert">
+            <p class="error">
+                您还没有登录，请先登录！				</p>
+            <p class="detail"></p>
+            <p class="jump">
+                页面自动 <a id="href" href="<?php echo U('User/login');?>">跳转</a> 等待时间： <b id="wait">3</b>
+            </p>
+        </div>
     </div>
+
+
+    <script type="text/javascript">
+        (function () {
+            var wait = document.getElementById('wait'), href = document.getElementById('href').href;
+            var interval = setInterval(function () {
+                var time = --wait.innerHTML;
+                if (time <= 0) {
+                    location.href = href;
+                    clearInterval(interval);
+                };
+            }, 1000);
+        })();
+    </script>
+
+
+    <!--导航结束-->
 
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

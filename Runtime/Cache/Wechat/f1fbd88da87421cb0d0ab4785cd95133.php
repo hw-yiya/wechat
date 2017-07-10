@@ -42,35 +42,19 @@
     <!--导航结束-->
 
     <div class="container-fluid">
-        <form action="/index.php?s=/Wechat/Repair/index.html" method="post">
-            <div class="form-group">
-                <label>您的姓名(必填):</label>
-                <input type="text" name="name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>您的电话(必填):</label>
-                <input type="text" name="tel" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>您的地址(必填):</label>
-                <input type="text" name="address" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>标题(必填):</label>
-                <input type="text" name="title" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>内容(详细描述需要报修的内容):</label>
-                <textarea type="text" name="content" class="form-control"></textarea>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<div><a href="#"><span class="glyphicon glyphicon-plus onlineUpImg"></span></a></div>-->
-            <!--<label>图片(最多上传5张,可不上传):</label>-->
-            <!--</div>-->
-            <div class="form-group">
-                <button class="btn btn-primary onlineBtn">确认提交</button>
-            </div>
-        </form>
+        <div class="indexImg row">
+            <img src="Uploads/Picture/6.jpg" width="100%" />
+        </div>
+        <div class="blank"></div>
+        <div class="container">
+            <ul class="list-group fuwuList">
+                <li class="list-group-item"><a href="diaochawenjuan.html" class="text-danger"><span class="iconfont">&#xe604;</span>调查问卷</a> </li>
+                <li class="list-group-item"><a href="<?php echo U('Owners/register');?>" class="text-info"><span class="iconfont">&#xe605;</span>业主认证</a></li>
+                <li class="list-group-item"><a href="#" class="text-success"><span class="iconfont">&#xe602;</span>在线缴费</a></li>
+                <li class="list-group-item"><a href="bianming.html" class="text-warning"><span class="iconfont">&#xe601;</span>生活贴士</a></li>
+                <li class="list-group-item"><a href="about.html" class="text-primary"><span class="iconfont">&#xe600;</span>关于我们</a></li>
+            </ul>
+        </div>
     </div>
 
 </div>

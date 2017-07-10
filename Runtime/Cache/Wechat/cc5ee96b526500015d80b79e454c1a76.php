@@ -42,26 +42,26 @@
     <!--导航结束-->
 
     <div class="container-fluid">
-        <form action="/index.php?s=/Wechat/Repair/index.html" method="post">
+        <form>
             <div class="form-group">
                 <label>您的姓名(必填):</label>
-                <input type="text" name="name" class="form-control" />
+                <input type="text" class="form-control" />
             </div>
             <div class="form-group">
                 <label>您的电话(必填):</label>
-                <input type="text" name="tel" class="form-control" />
+                <input type="text" class="form-control" />
             </div>
             <div class="form-group">
                 <label>您的地址(必填):</label>
-                <input type="text" name="address" class="form-control" />
+                <input type="text" class="form-control" />
             </div>
             <div class="form-group">
                 <label>标题(必填):</label>
-                <input type="text" name="title" class="form-control" />
+                <input type="text" class="form-control" />
             </div>
             <div class="form-group">
                 <label>内容(详细描述需要报修的内容):</label>
-                <textarea type="text" name="content" class="form-control"></textarea>
+                <textarea type="text" class="form-control"></textarea>
             </div>
             <!--<div class="form-group">-->
             <!--<div><a href="#"><span class="glyphicon glyphicon-plus onlineUpImg"></span></a></div>-->

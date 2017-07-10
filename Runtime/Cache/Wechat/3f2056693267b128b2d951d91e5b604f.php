@@ -42,31 +42,35 @@
     <!--导航结束-->
 
     <div class="container-fluid">
-        <form action="/index.php?s=/Wechat/Repair/index.html" method="post">
+        <form action="<?php echo U('Owners/register');?>" method="post">
             <div class="form-group">
                 <label>您的姓名(必填):</label>
-                <input type="text" name="name" class="form-control" />
+                <input type="text"  name="name" class="form-control" />
             </div>
             <div class="form-group">
-                <label>您的电话(必填):</label>
+                <label>你的房号(必填):</label>
+                <input type="text" name="family_no" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>小区名字(必填):</label>
+                <input type="text" name="family_name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>您与业主的关系(必填):</label>
+                <select class="form-control" name="relation">
+                    <option value="0">本人</option>
+                    <option value="1">亲属</option>
+                    <option value="2">租户</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>联系电话(必填):</label>
                 <input type="text" name="tel" class="form-control" />
             </div>
             <div class="form-group">
-                <label>您的地址(必填):</label>
-                <input type="text" name="address" class="form-control" />
+                <label>身份证号码(必填):</label>
+                <input type="text" name="code" class="form-control" />
             </div>
-            <div class="form-group">
-                <label>标题(必填):</label>
-                <input type="text" name="title" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>内容(详细描述需要报修的内容):</label>
-                <textarea type="text" name="content" class="form-control"></textarea>
-            </div>
-            <!--<div class="form-group">-->
-            <!--<div><a href="#"><span class="glyphicon glyphicon-plus onlineUpImg"></span></a></div>-->
-            <!--<label>图片(最多上传5张,可不上传):</label>-->
-            <!--</div>-->
             <div class="form-group">
                 <button class="btn btn-primary onlineBtn">确认提交</button>
             </div>
